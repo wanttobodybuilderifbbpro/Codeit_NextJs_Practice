@@ -1,15 +1,38 @@
-import SearchForm from '@/components/SearchForm';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import ProductList from '@/components/ProductList';
+import SearchForm from '@/components/SearchForm';
+import axios from '@/lib/axios';
+import styles from '@/components/ProductList.module.css';
+import Header from '@/components/Header';
+import Container from '@/components/Container';
 
 export default function Search() {
+  const [products, setProducts] = useState([]);
   const router = useRouter();
   const { q } = router.query;
 
-  return(
+  async function getProducts(query) {
+    const res = await axios.get(`/products/?q=${query}`);
+    const nextProducts = res.data.results;
+    setProducts(nextProducts);
+  }
+
+  useEffect(() => {
+    getProducts(q);
+  }, [q]);
+
+
+  return (
     <div>
-      <h1>Search page</h1>
-      <SearchForm intialValue={q} />
-      <h2>{q} Search Results : </h2>
+      <Header />
+      <Container>
+        <SearchForm initialValue={q} />
+        <h2 className={styles.title}>
+          <span className={styles.keyword}>{q}</span> 검색 결과
+        </h2>
+        <ProductList className={styles.productList} products={products} />
+      </Container>
     </div>
   );
 }
