@@ -6,6 +6,7 @@ import axios from '@/lib/axios';
 import styles from '@/components/ProductList.module.css';
 import Header from '@/components/Header';
 import Container from '@/components/Container';
+import Head from 'next/head';
 
 export default function Search() {
   const [products, setProducts] = useState([]);
@@ -25,9 +26,11 @@ export default function Search() {
 
   return (
     <>
-      
-        <SearchForm />
-        <ProductList className={styles.productList} products={products} />
+      <Head>
+        <title>{q} Results - Codeitmall</title>
+      </Head>  
+      <SearchForm />
+      <ProductList className={styles.productList} products={products} />
     
     </>
   );
