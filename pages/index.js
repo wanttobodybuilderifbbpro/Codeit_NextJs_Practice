@@ -2,9 +2,7 @@ import { useEffect, useState } from 'react';
 import ProductList from '@/components/ProductList';
 import SearchForm from '@/components/SearchForm';
 import axios from '@/lib/axios';
-import styles from '@/components/ProductList.module.css';
-import Header from '@/components/Header';
-import Container from '@/components/Container';
+import styles from '@/styles/Home.module.css';
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -21,8 +19,8 @@ export default function Home() {
 
   return (
     <>
-        <SearchForm />
-        <ProductList className={styles.products} products={products} />
+      <SearchForm />
+      <ProductList className={styles.productList} products={products} />
     </>
   )
 }
