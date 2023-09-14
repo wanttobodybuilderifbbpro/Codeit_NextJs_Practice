@@ -1,30 +1,34 @@
-import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
+import styles from './SearchForm.module.css';
 
-export default function SearchForm({ intialValue = ''}) {
-  const [value, setValue] = useState(intialValue);
+export default function SearchForm({ initialValue = '' }) {
   const router = useRouter();
+  const [value, setValue] = useState(initialValue);
 
-  function handleChange(e) {
+  const handleChange = (e) => {
     setValue(e.target.value);
-  }
+  };
 
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if ( !value ) {
+    if (!value) {
       router.push('/');
       return;
     }
-
     router.push(`/search?q=${value}`);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input name="q" value={value} onChange={handleChange} />
-      <button>Search</button>
+    <form className={styles.searchForm} onSubmit={handleSubmit}>
+      <input
+        className={styles.searchInput}
+        name="q"
+        value={value}
+        placeholder="찾고 싶은 옷을 검색해보세요."
+        onChange={handleChange}
+      />
+      <button className={styles.searchButton}>검색</button>
     </form>
-
-    /* please */
-  )
+  );
 }

@@ -21,6 +21,7 @@
   color: #121212;
   background: #f9f9f9;
   border: 1px solid #e1e1e1;
+  border-radius: 0px 0px 10px 10px;
 }
 
 .image {
